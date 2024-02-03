@@ -471,7 +471,7 @@ bool Scene::flush(RenderQueue *queue, const RenderJob *job, size_t iteration) {
     std::string scenePath = this->getDestinationFile().string();
     fs::path partialDir = scenePath;// + "_" + "partial";
 
-    std::string sceneName = fs::path(scenePath).filename().c_str();
+	std::string sceneName = fs::path(scenePath).filename().string();
 
     if (!fs::exists(partialDir))
         fs::create_directory(partialDir);

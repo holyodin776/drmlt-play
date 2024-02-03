@@ -1037,9 +1037,9 @@ bool GradientPathIntegrator::render(Scene *scene,
                     auto variance = [&]() -> Reconstruction::Variance {
                         if (m_config.computeVariance) {
                             return {
-                                    primal: bitmap2vec(throughputBuffer->getSampleVariance(0)),
-                                    dx: bitmap2vec(gradientXBuffer->getSampleVariance(0)),
-                                    dy: bitmap2vec(gradientYBuffer->getSampleVariance(0))
+                                    bitmap2vec(throughputBuffer->getSampleVariance(0)),
+                                    bitmap2vec(gradientXBuffer->getSampleVariance(0)),
+                                    bitmap2vec(gradientYBuffer->getSampleVariance(0))
                             };
                         } else {
                             return {};
@@ -1050,8 +1050,8 @@ bool GradientPathIntegrator::render(Scene *scene,
                                                        throughputVector, dxVector, dyVector, directVector,
                                                        variance,
                                                        PostProcessOption{
-                                                               forceBlackPixels: m_config.forceBlackPixels,
-                                                               clampingValues: true
+                                                               m_config.forceBlackPixels,
+                                                               true
                                                        });
                     if (rec_results.size() == 1) {
                         develop(scene, hdrFilm, rec_results[0].img, currentIteration, "_recons_");
@@ -1107,13 +1107,13 @@ bool GradientPathIntegrator::render(Scene *scene,
                                                gradientYVector,
                                                directVector,
                                                Reconstruction::Variance{// Variance
-                                                       primal: bitmap2vec(throughputBuffer->getSampleVariance(0)),
-                                                       dx: bitmap2vec(gradientXBuffer->getSampleVariance(0)),
-                                                       dy: bitmap2vec(gradientYBuffer->getSampleVariance(0))
+                                                        bitmap2vec(throughputBuffer->getSampleVariance(0)),
+                                                       bitmap2vec(gradientXBuffer->getSampleVariance(0)),
+                                                       bitmap2vec(gradientYBuffer->getSampleVariance(0))
                                                },
                                                PostProcessOption{
-                                                       forceBlackPixels: m_config.forceBlackPixels,
-                                                       clampingValues: true
+                                                       m_config.forceBlackPixels,
+                                                        true
                                                });
 
                 auto throughputVectorA = bitmap2vec(throughputBuffer->getBufferA(0));
@@ -1125,13 +1125,13 @@ bool GradientPathIntegrator::render(Scene *scene,
                                                 gradientYVectorA,
                                                 directVector,
                                                 Reconstruction::Variance{// reuse variance of the main buffer
-                                                        primal: bitmap2vec(throughputBuffer->getSampleVariance(0)),
-                                                        dx: bitmap2vec(gradientXBuffer->getSampleVariance(0)),
-                                                        dy: bitmap2vec(gradientYBuffer->getSampleVariance(0))
+                                                         bitmap2vec(throughputBuffer->getSampleVariance(0)),
+                                                         bitmap2vec(gradientXBuffer->getSampleVariance(0)),
+                                                         bitmap2vec(gradientYBuffer->getSampleVariance(0))
                                                 },
                                                 PostProcessOption{
-                                                        forceBlackPixels: m_config.forceBlackPixels,
-                                                        clampingValues: true
+                                                        m_config.forceBlackPixels,
+                                                         true
                                                 });
 
                 auto throughputVectorB = bitmap2vec(throughputBuffer->getBufferB(0));
@@ -1143,13 +1143,13 @@ bool GradientPathIntegrator::render(Scene *scene,
                                                 gradientYVectorB,
                                                 directVector,
                                                 Reconstruction::Variance{// reuse variance of the main buffer
-                                                        primal: bitmap2vec(throughputBuffer->getSampleVariance(0)),
-                                                        dx: bitmap2vec(gradientXBuffer->getSampleVariance(0)),
-                                                        dy: bitmap2vec(gradientYBuffer->getSampleVariance(0))
+                                                         bitmap2vec(throughputBuffer->getSampleVariance(0)),
+                                                        bitmap2vec(gradientXBuffer->getSampleVariance(0)),
+                                                         bitmap2vec(gradientYBuffer->getSampleVariance(0))
                                                 },
                                                 PostProcessOption{
-                                                        forceBlackPixels: m_config.forceBlackPixels,
-                                                        clampingValues: true
+                                                         m_config.forceBlackPixels,
+                                                        true
                                                 });
 
                 // Do NFOR for all reconstructed images

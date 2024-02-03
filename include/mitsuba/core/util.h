@@ -20,6 +20,12 @@
 #if !defined(__MITSUBA_CORE_UTIL_H_)
 #define __MITSUBA_CORE_UTIL_H_
 
+#if defined(__MSVC__)
+#include <cstdint>
+#include <intrin.h>
+#pragma intrinsic(__rdtsc)
+#endif
+
 #include <boost/static_assert.hpp>
 
 MTS_NAMESPACE_BEGIN
@@ -209,6 +215,7 @@ static FINLINE uint64_t rdtsc(void) {
 }
 #endif
 #elif defined(__MSVC__)
+
 static FINLINE __int64 rdtsc(void) {
 	return __rdtsc();
 }

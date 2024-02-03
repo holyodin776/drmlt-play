@@ -358,8 +358,8 @@ public:
                                                        imgf, dxf, dyf, direct,
                                                        Reconstruction::Variance {},
                                                        PostProcessOption{
-                                                               forceBlackPixels: m_config.forceBlackPixels,
-                                                               clampingValues: true
+                                                               m_config.forceBlackPixels,
+                                                               true
                                                        });
                     renderingTimer->reset();
                     if (rec_results.size() == 1) {

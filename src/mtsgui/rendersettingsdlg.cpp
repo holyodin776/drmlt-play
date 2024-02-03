@@ -122,9 +122,16 @@ RenderSettingsDialog::RenderSettingsDialog(QWidget *parent) :
 
     /* Populate the integrator, rec. filter & sampler combo box widgets */
     QDomElement docRoot = m_document.documentElement();
-    for (QDomElement e = docRoot.firstChildElement("plugin"); !e.isNull();
-         e = e.nextSiblingElement("plugin")) {
+    for (QDomElement e = docRoot.firstChildElement("plugin"); !e.isNull(); e = e.nextSiblingElement("plugin"))
+    {
         QString docString, name = e.attribute("name");
+        std::string nn = name.toStdString();
+        std::string dn = name.toStdString();
+        std::cout<< dn<<std::endl;
+        if(nn == "gpt")
+        {
+            int hjk = 0;
+        }
         if (!e.firstChildElement("descr").isNull()) {
             /* Create a HTML-based documentation string */
             QDomDocument helpDoc;
@@ -172,6 +179,7 @@ RenderSettingsDialog::RenderSettingsDialog(QWidget *parent) :
         SLOT(onTreeSelectionChange(const QItemSelection &, const QItemSelection &)));
     connect(m_model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(dataChanged()));
     m_integratorNode = m_model->registerClass("MIPathTracer", "Path tracer");
+    //m_integratorNode = m_model->registerClass("DRMLT", "Delayed Rejection Metropolis Light Transport");
     m_samplerNode = m_model->registerClass("IndependentSampler", "Independent sampler");
     m_rFilterNode = m_model->registerClass("BoxFilter", "Box filter");
     QRegExp resRegExp("^[1-9]\\d{0,4}x[1-9]\\d{0,4}$");
@@ -482,6 +490,12 @@ void RenderSettingsDialog::apply(SceneContext *ctx) {
 
     filmProps.setInteger("width", size.x, false);
     filmProps.setInteger("height", size.y, false);
+
+	/* g-pt and g-bdpt only work with multifilm. */
+	if (getPluginName(ui->integratorBox) == "gbdpt" || getPluginName(ui->integratorBox) == "gpt")
+		filmProps.setPluginName("multifilm");
+	else
+		filmProps.setPluginName("hdrfilm");
 
     if (size.x != cropSize.x || size.y != cropSize.y || cropOffset.x != 0 || cropOffset.y != 0) {
         filmProps.setInteger("cropWidth", cropSize.x, false);

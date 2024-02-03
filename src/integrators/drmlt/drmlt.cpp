@@ -190,18 +190,19 @@ public:
             multiplexed path sampler
             If set to <tt>path</tt>, the MLT algorithm runs on top of a
             to a basic path tracer. */
-        m_config.technique = [&]() -> PathSampler::ETechnique {
-            auto integrator = props.getString("technique");
-            if (integrator == "path") {
-                return PathSampler::EUnidirectional;
-            } else if (integrator == "bdpt") {
-                return PathSampler::EBidirectional;
-            } else if (integrator == "mmlt") {
-                return PathSampler::EMMLT;
-            } else {
-                Log(EError, "Unknown technique type");
-            }
-        }();
+        //m_config.technique = [&]() -> PathSampler::ETechnique {
+        //    auto integrator = props.getString("technique");
+        //    if (integrator == "path") {
+        //        return PathSampler::EUnidirectional;
+        //    } else if (integrator == "bdpt") {
+        //        return PathSampler::EBidirectional;
+        //    } else if (integrator == "mmlt") {
+        //        return PathSampler::EMMLT;
+        //    } else {
+        //        Log(EError, "Unknown technique type");
+        //    }
+        //}();
+        m_config.technique = PathSampler::EUnidirectional;
 
         
         /* Longest visualized path length (<tt>-1</tt>=infinite).
@@ -309,18 +310,19 @@ public:
             <tt>green</tt> for Green & Mira (2001)
             <tt>mira</tt> for Tierney & Mira (1999)
             <tt>orbital</tt> for Orbital */
-        m_config.type = [&]() -> DRMLTConfiguration::EType {
-            auto implementation = props.getString("type");
-            if(implementation == "green") {
-                return DRMLTConfiguration::EGreen;
-            } else if (implementation == "mira") {
-                return DRMLTConfiguration::EMira;
-            } else if (implementation == "mirasym" || implementation == "orbital") {
-                return DRMLTConfiguration::EOrbital;
-            } else {
-                Log(EError, "Unknown implementation type");
-            }
-        }();
+        //m_config.type = [&]() -> DRMLTConfiguration::EType {
+        //    auto implementation = props.getString("type");
+        //    if(implementation == "green") {
+        //        return DRMLTConfiguration::EGreen;
+        //    } else if (implementation == "mira") {
+        //        return DRMLTConfiguration::EMira;
+        //    } else if (implementation == "mirasym" || implementation == "orbital") {
+        //        return DRMLTConfiguration::EOrbital;
+        //    } else {
+        //        Log(EError, "Unknown implementation type");
+        //    }
+        //}();
+        m_config.type = DRMLTConfiguration::EGreen;
 
         /* if <tt>true</tt> output the acceptance heatmap for DR stages*/
         m_config.acceptanceMap = props.getBoolean("acceptanceMap", false);

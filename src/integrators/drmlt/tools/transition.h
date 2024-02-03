@@ -176,7 +176,8 @@ public:
         /* DRMLT (2020) Eq. 10 */
         Float rho2 = rho*rho;
         Float d = du;
-        Float p = 0.5*M_1_PI *(1.0-rho2)/(1.0+rho2-2.0*rho*cos(d));
+        float M_1_PI = 3.14159f;
+        Float p = 0.5* M_1_PI *(1.0-rho2)/(1.0+rho2-2.0*rho*cos(d));
         return p;
     }
 

@@ -547,6 +547,7 @@ public:
             const Vector &d = normalize(vs->getPosition() - vt->getPosition());
             cos_theta = absDot(vs->getGeometricNormal(), d);
         }
+        float M_1_PI = 3.1415926;
         Float r = sqrt(cos_theta) * sqrt(Float(1.f) / (surface_pdf * nPixels + D_EPSILON) * M_1_PI);
         return std::min(defaultRadius, r);
     }

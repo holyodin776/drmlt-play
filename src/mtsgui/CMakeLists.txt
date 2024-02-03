@@ -18,7 +18,7 @@ endif()
 #  set(MTS_EXE_TYPE "WIN32")
 #endif()
 #include(${QT_USE_FILE})
-include_directories(${QT_INCLUDE_DIR} /usr/include/qt)
+include_directories("C:/Qt/5.15.2/msvc2019_64/include")
 
 # Add all the sources
 set (UI_FILES
@@ -138,7 +138,7 @@ source_group("Qt Resources" FILES ${RC_FILES})
 # Add our own qtmain and use the static file dialogs
 if (WIN32)
   add_definitions(-D MTS_CUSTOM_QTMAIN -DMTSGUI_STATIC_QFILEDIALOG=1)
-  list(APPEND SRCS qtmain_win.cpp)
+  #list(APPEND SRCS qtmain_win.cpp)
 endif()
 
 # Generate the moc files

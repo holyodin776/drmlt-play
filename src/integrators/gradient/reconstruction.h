@@ -177,8 +177,8 @@ struct Reconstruction {
 			std::vector<float> rec(len, 0.f);
 			solverL2.exportImagesMTS(&rec[0]);
 			results.push_back(Result {
-				name: "L2",
-				img: options.process(rec, primal, very_direct, imgSize)
+				 "L2",
+				options.process(rec, primal, very_direct, imgSize)
 			});
 		}
 		if(reconstructL1) {
@@ -196,8 +196,8 @@ struct Reconstruction {
 			std::vector<float> rec(len, 0.f);
 			solverL1.exportImagesMTS(&rec[0]);
 			results.push_back(Result {
-					name: "L1",
-					img: options.process(rec, primal, very_direct, imgSize)
+					"L1",
+					options.process(rec, primal, very_direct, imgSize)
 			});
 		}
 		if(reconstructUni) {
@@ -252,8 +252,8 @@ struct Reconstruction {
 				}
 			}
 			results.push_back(Result {
-				name: "Uni",
-				img: options.process(rec[dst], primal, very_direct, imgSize)
+				"Uni",
+				options.process(rec[dst], primal, very_direct, imgSize)
 			});
 		}
 		if(reconstructWeighted) {
@@ -325,8 +325,8 @@ struct Reconstruction {
 				}
 			}
 			results.push_back(Result {
-					name: "Weighted",
-					img: options.process(rec[dst], primal, very_direct, imgSize)
+					 "Weighted",
+					 options.process(rec[dst], primal, very_direct, imgSize)
 			});
 		}
 		if(reconstructL2Weighted) {
@@ -350,8 +350,8 @@ struct Reconstruction {
 			std::vector<float> rec(len, 0.f);
 			solverL2.exportImagesMTS(&rec[0]);
 			results.push_back(Result {
-					name: "L2Weighted",
-					img: options.process(rec, primal, very_direct, imgSize)
+					"L2Weighted",
+					options.process(rec, primal, very_direct, imgSize)
 			});
 		}
 

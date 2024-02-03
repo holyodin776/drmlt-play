@@ -2,6 +2,8 @@
 # Tested only on Windows and Linux (Ubuntu 10.10)
 cmake_minimum_required(VERSION 2.8.3 FATAL_ERROR)
 
+
+
 # Internal variable to know whether this is the first time CMake runs
 if (NOT DEFINED MTS_CMAKE_INIT)
   set(MTS_CMAKE_INIT ON CACHE INTERNAL "Is this the initial CMake run?")
@@ -13,7 +15,7 @@ endif()
 if (NOT DEFINED MTS_PROJECT_NAME)
   set(MTS_PROJECT_NAME "mitsuba")
 endif()
-project(${MTS_PROJECT_NAME})
+project("GradientBased")
 
 # Tell cmake where to find the additional modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/data/cmake")
@@ -33,6 +35,28 @@ if(MSVC AND CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING
     "Remove Debug from available configuration types"
      FORCE)
+endif()
+
+if(MSVC)
+
+if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+    message(STATUS "debug mode")
+elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
+	message(STATUS "release mode")
+else(CMAKE_BUILD_TYPE MATCHES RELWITHDEBINFO)
+	message(STATUS "RelWithDebInfo mode")
+endif()
+
+cmake_policy(SET CMP0069 NEW) 
+set(CMAKE_POLICY_DEFAULT_CMP0069 NEW)
+include(CheckIPOSupported)
+check_ipo_supported(RESULT ipo_result OUTPUT ipo_err)
+if (ipo_result)
+    message(STATUS "IPO is supported")
+    #set_property(GLOBAL PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+else(ipo_result)
+	message(STATUS "IPO is not supported")
+endif ()
 endif()
 
 
