@@ -88,7 +88,7 @@ MTS_NAMESPACE_BEGIN
  * }
  */
 Float VertexClassifier::roughnessThreshold;
-
+ 
 class GPMIntegrator : public Integrator {
 public:
 	explicit GPMIntegrator(const Properties &props) : Integrator(props) {
@@ -398,8 +398,10 @@ public:
 #endif
 		int itGlobal = 1;
 		int it = 1;
-		while (m_running && (m_config.maxPasses == -1 || it < m_config.maxPasses)) {			
-			for (int local_it = 0; local_it < samplesPerPixel; local_it++) {								
+		while (m_running && (m_config.maxPasses == -1 || it < m_config.maxPasses))
+		{			
+			for (int local_it = 0; local_it < samplesPerPixel; local_it++)
+			{								
 				m_bufferIndex = bufferAB ? (itGlobal - 1) % 2 : 0;
 				m_gatherBlocks = &m_gatherBlocksAB[m_bufferIndex];
 				m_gpManager = &m_gpManagerAB[m_bufferIndex];
@@ -410,13 +412,15 @@ public:
 				Log(EInfo, "Done regenerating!");
 				m_gpManager->rescaleFlux();
 
-				if (itGlobal == 1) {
+				if (itGlobal == 1 || bufferAB == false)
+				{
 					// FIXME: Change this weird behavior. Indeed gp.pixel is set during the gp tracing...
 					/* Create a copy of the gather point using image space,
 					 * to be able to retrieve them easily
 					 */
 					allocImageBlocks(scene, m_gatherBlocksAB[0], m_imgGPAB[0]);
-				} else if (itGlobal == 2) {
+				} else if (itGlobal == 2) 
+				{
 					allocImageBlocks(scene, m_gatherBlocksAB[1], m_imgGPAB[1]);
 				}
 
@@ -599,8 +603,8 @@ public:
 															directVector,
 															Reconstruction::Variance {},
 															PostProcessOption{
-																	forceBlackPixels: m_config.forceBlackPixels,
-																	clampingValues: true
+																	 m_config.forceBlackPixels,
+																	 true
 															});
 							
 							Bitmap *bitmapRecons = NULL;
@@ -676,13 +680,13 @@ public:
 													gradientYVector,
 													directVector,
 													Reconstruction::Variance{// Variance
-															primal: bitmap2vec(throughputBitmapVariance),
-															dx: bitmap2vec(dxBitmapVariance),
-															dy: bitmap2vec(dyBitmapVariance)
+															bitmap2vec(throughputBitmapVariance),
+															bitmap2vec(dxBitmapVariance),
+															bitmap2vec(dyBitmapVariance)
 													},
 													PostProcessOption{
-															forceBlackPixels: m_config.forceBlackPixels,
-															clampingValues: true
+															 m_config.forceBlackPixels,
+															 true
 													});
 						
 						develop(scene, hdrFilm, throughputBitmap, currentIteration, "_throughput_");
@@ -710,13 +714,13 @@ public:
 															gradientYVectorA,
 															directVector,
 															Reconstruction::Variance{// reuse variance of the main buffer
-																	primal: bitmap2vec(throughputBitmapVariance),
-																	dx: bitmap2vec(dxBitmapVariance),
-																	dy: bitmap2vec(dyBitmapVariance)
+																	bitmap2vec(throughputBitmapVariance),
+																	bitmap2vec(dxBitmapVariance),
+																	bitmap2vec(dyBitmapVariance)
 															},
 															PostProcessOption{
-																	forceBlackPixels: m_config.forceBlackPixels,
-																	clampingValues: true
+																	m_config.forceBlackPixels,
+																	true
 															});
 
 							auto throughputVectorB = bitmap2vec(throughputBitmapB);
@@ -728,13 +732,13 @@ public:
 															gradientYVectorB,
 															directVector,
 															Reconstruction::Variance{// reuse variance of the main buffer
-																	primal: bitmap2vec(throughputBitmapVariance),
-																	dx: bitmap2vec(dxBitmapVariance),
-																	dy: bitmap2vec(dyBitmapVariance)
+																	bitmap2vec(throughputBitmapVariance),
+																	bitmap2vec(dxBitmapVariance),
+																	bitmap2vec(dyBitmapVariance)
 															},
 															PostProcessOption{
-																	forceBlackPixels: m_config.forceBlackPixels,
-																	clampingValues: true
+																	m_config.forceBlackPixels,
+																	true
 															});
 
 							// Do NFOR for all reconstructed images

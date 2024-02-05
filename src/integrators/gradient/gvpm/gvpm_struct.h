@@ -221,8 +221,8 @@ struct GPMConfig {
     reconstructL1 = props.getBoolean("reconstructL1", false);
     reconstructL2 = props.getBoolean("reconstructL2", true);
     reconstructUni = props.getBoolean("reconstructUni", false);
-    reconstructWeighted = props.getBoolean("reconstructWeighted", false);
-    reconstructNfor = props.getBoolean("reconstructNfor", false);
+    reconstructWeighted = props.getBoolean("reconstructWeighted", true);
+    reconstructNfor = props.getBoolean("reconstructNfor", true);
     reconstructAlpha = props.getFloat("reconstructAlpha", Float(0.2));
 
     // Vertex classification

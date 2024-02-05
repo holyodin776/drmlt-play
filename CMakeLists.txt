@@ -38,7 +38,9 @@ if(MSVC AND CMAKE_CONFIGURATION_TYPES)
 endif()
 
 if(MSVC)
-
+option(MTS_OPENMP "Use pch" OFF)
+add_definitions(-D__SSE__)
+add_definitions(-DNOMINMAX)
 if(CMAKE_BUILD_TYPE MATCHES DEBUG)
     message(STATUS "debug mode")
 elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)

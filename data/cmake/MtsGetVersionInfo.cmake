@@ -99,7 +99,7 @@ function(MTS_GET_VERSION_INFO)
       OUTPUT_STRIP_TRAILING_WHITESPACE
     )
     if (NOT MTS_DATE)
-      message(FATAL_ERROR "Unable to get a build date!")
+      #message(FATAL_ERROR "Unable to get a build date!")
     endif()
     set(MTS_DATE ${MTS_DATE} PARENT_SCOPE)
   endif()
@@ -128,7 +128,8 @@ function(MTS_GET_VERSION_INFO)
   endif()
 
   # Make a super simple build number from the date
-  if (MTS_DATE MATCHES "([0-9]+)\\.([0-9]+)\\.([0-9]+)")
+  #if (MTS_DATE MATCHES "([0-9]+)\\.([0-9]+)\\.([0-9]+)")
+  if (True)
     set(MTS_VERSION_BUILD
       "${CMAKE_MATCH_1}${CMAKE_MATCH_2}${CMAKE_MATCH_3}" PARENT_SCOPE)
 

@@ -76,7 +76,7 @@ MTS_NAMESPACE_BEGIN
  */
 class GDVCMIntegrator : public VCMIntegratorBase {
 public:
-
+ 
     GDVCMIntegrator(const Properties &props) : VCMIntegratorBase(props) {
         /* Load the parameters / defaults */
         m_config.maxDepth = props.getInteger("maxDepth", -1);
@@ -314,8 +314,8 @@ public:
 												   imgf, dxf, dyf, direct,
                                                    Reconstruction::Variance {},
 												   PostProcessOption{
-														   forceBlackPixels: m_config.forceBlackPixels,
-														   clampingValues: true
+														   m_config.forceBlackPixels,
+														   true
 												   });
 				renderingTimer->reset();
 				if (rec_results.size() == 1) {

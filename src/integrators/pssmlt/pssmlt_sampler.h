@@ -140,7 +140,7 @@ public:
         } else {
             Float tmp1 = std::sqrt(-2 * std::log(1 - m_random->nextFloat()));
             Float dv = tmp1 * std::cos(2 * M_PI * m_random->nextFloat());
-            value = math::modulo(value + m_sigma * dv, 1.0f);
+            value = math::modulo(float(value + m_sigma * dv), 1.0f);
         }
 
 		return value;

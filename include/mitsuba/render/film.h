@@ -147,7 +147,7 @@ protected:
 	Point2i m_cropOffset;
 	Vector2i m_size, m_cropSize;
 	bool m_highQualityEdges;
-	ref<ReconstructionFilter> m_filter;
+	ref<ReconstructionFilter> m_filter = nullptr;
 };
 
 MTS_NAMESPACE_END

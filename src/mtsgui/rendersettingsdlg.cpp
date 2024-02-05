@@ -125,13 +125,6 @@ RenderSettingsDialog::RenderSettingsDialog(QWidget *parent) :
     for (QDomElement e = docRoot.firstChildElement("plugin"); !e.isNull(); e = e.nextSiblingElement("plugin"))
     {
         QString docString, name = e.attribute("name");
-        std::string nn = name.toStdString();
-        std::string dn = name.toStdString();
-        std::cout<< dn<<std::endl;
-        if(nn == "gpt")
-        {
-            int hjk = 0;
-        }
         if (!e.firstChildElement("descr").isNull()) {
             /* Create a HTML-based documentation string */
             QDomDocument helpDoc;
@@ -481,7 +474,7 @@ void RenderSettingsDialog::apply(SceneContext *ctx) {
     Vector2i oldSize = oldFilm->getSize();
     Vector2i oldCropSize = oldFilm->getCropSize();
     Point2i oldCropOffset = oldFilm->getCropOffset();
-
+     
     Vector2i size(math::roundToInt((oldSize.x * cropSize.x / (Float) oldCropSize.x)),
                   math::roundToInt((oldSize.y * cropSize.y / (Float) oldCropSize.y)));
 
@@ -492,7 +485,7 @@ void RenderSettingsDialog::apply(SceneContext *ctx) {
     filmProps.setInteger("height", size.y, false);
 
 	/* g-pt and g-bdpt only work with multifilm. */
-	if (getPluginName(ui->integratorBox) == "gbdpt" || getPluginName(ui->integratorBox) == "gpt")
+	if (getPluginName(ui->integratorBox) == "gbdpt" || getPluginName(ui->integratorBox) == "gpt" || getPluginName(ui->integratorBox) == "gvcm" || getPluginName(ui->integratorBox) == "gvpm")
 		filmProps.setPluginName("multifilm");
 	else
 		filmProps.setPluginName("hdrfilm");
